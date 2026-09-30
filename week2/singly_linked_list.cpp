@@ -3,31 +3,24 @@ using namespace std;
 struct Node {
     int data;
     Node* next;
-
     Node(int val) : data(val), next(nullptr) {}
 };
-
 class SinglyLinkedList {
 private:
     Node* head;
     int size;
-
     void traverseBackwardHelper(Node* current) {
         if (current == nullptr) return;
         traverseBackwardHelper(current->next);
         cout << current->data << " ";
     }
-
 public:
     SinglyLinkedList() : head(nullptr), size(0) {}
-
     ~SinglyLinkedList() {
         while (head != nullptr) {
             deleteHead();
         }
     }
-
-
     void traverseForward() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
@@ -41,27 +34,21 @@ public:
         }
         cout << endl;
     }
-
-
     void traverseBackward() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
         }
-        cout << "Duyet nguoic: ";
+        cout << "Duyet nguoc: ";
         traverseBackwardHelper(head);
         cout << endl;
     }
-
-
     void insertHead(int val) {
         Node* newNode = new Node(val);
         newNode->next = head;
         head = newNode;
         size++;
     }
-
-
     void insertTail(int val) {
         Node* newNode = new Node(val);
         if (head == nullptr) {
@@ -75,8 +62,6 @@ public:
         }
         size++;
     }
-
-
     void insertAt(int val, int k) {
         if (k < 0 || k > size) {
             cout << "Vi tri k khong hop le!\n";
@@ -95,8 +80,6 @@ public:
         temp->next = newNode;
         size++;
     }
-
-
     void deleteHead() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
@@ -107,8 +90,6 @@ public:
         delete temp;
         size--;
     }
-
-
     void deleteTail() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
@@ -127,8 +108,6 @@ public:
         }
         size--;
     }
-
-
     void deleteAt(int k) {
         if (k < 0 || k >= size) {
             cout << "Vi tri k khong hop le!\n";
@@ -148,23 +127,17 @@ public:
         size--;
     }
 };
-
 int main() {
     SinglyLinkedList sll;
-
-
     sll.insertHead(10);
     sll.insertHead(20);
     sll.insertTail(30);
     sll.insertAt(15, 1);
-
     sll.traverseForward(); 
     sll.traverseBackward();
-    
     sll.deleteHead();    
     sll.deleteTail();    
     sll.deleteAt(1);     
     sll.traverseForward(); 
-
     return 0;
 }
