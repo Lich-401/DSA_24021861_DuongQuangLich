@@ -1,143 +1,167 @@
 #include <iostream>
 using namespace std;
+
 struct Node {
     int data;
     Node* next;
-    Node(int val) : data(val), next(nullptr) {}
-};
-class SinglyLinkedList {
-private:
-    Node* head;
-    int size;
-    void traverseBackwardHelper(Node* current) {
-        if (current == nullptr) return;
-        traverseBackwardHelper(current->next);
-        cout << current->data << " ";
+
+    Node(int val) {
+        data = val;
+        next = nullptr;
     }
-public:
-    SinglyLinkedList() : head(nullptr), size(0) {}
+};
+
+struct SinglyLinkedList {
+    Node* head;
+
+    SinglyLinkedList() {
+        head = nullptr;
+    }
+
     ~SinglyLinkedList() {
         while (head != nullptr) {
             deleteHead();
         }
     }
+
     void traverseForward() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
         }
-        cout << "Duyet xuoi: ";
+        cout << "Danh sach: ";
         Node* temp = head;
         while (temp != nullptr) {
-            cout << temp->data << " ";
+            cout << temp->data << " -> ";
             temp = temp->next;
         }
-        cout << endl;
+        cout << "NULL\n";
     }
+
+    void printReverse(Node* current) {
+        if (current == nullptr) return;
+        printReverse(current->next);
+        cout << current->data << " ";
+    }
+
     void traverseBackward() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
         }
         cout << "Duyet nguoc: ";
-        traverseBackwardHelper(head);
+        printReverse(head);
         cout << endl;
     }
+
     void insertHead(int val) {
         Node* newNode = new Node(val);
         newNode->next = head;
         head = newNode;
-        size++;
     }
+
     void insertTail(int val) {
         Node* newNode = new Node(val);
         if (head == nullptr) {
             head = newNode;
-        } else {
-            Node* temp = head;
-            while (temp->next != nullptr) {
-                temp = temp->next;
-            }
-            temp->next = newNode;
-        }
-        size++;
-    }
-    void insertAt(int val, int k) {
-        if (k < 0 || k > size) {
-            cout << "Vi tri k khong hop le!\n";
             return;
         }
+        Node* temp = head;
+        while (temp->next != nullptr) {
+            temp = temp->next;
+        }
+        temp->next = newNode;
+    }
+
+    void insertAt(int val, int k) {
         if (k == 0) {
             insertHead(val);
             return;
         }
-        Node* newNode = new Node(val);
         Node* temp = head;
         for (int i = 0; i < k - 1; i++) {
+            if (temp == nullptr) {
+                cout << "Vi tri k khong hop le!\n";
+                return;
+            }
             temp = temp->next;
         }
-        newNode->next = temp->next;
-        temp->next = newNode;
-        size++;
-    }
-    void deleteHead() {
-        if (head == nullptr) {
-            cout << "Danh sach rong!\n";
-            return;
-        }
-        Node* temp = head;
-        head = head->next;
-        delete temp;
-        size--;
-    }
-    void deleteTail() {
-        if (head == nullptr) {
-            cout << "Danh sach rong!\n";
-            return;
-        }
-        if (head->next == nullptr) {
-            delete head;
-            head = nullptr;
-        } else {
-            Node* temp = head;
-            while (temp->next->next != nullptr) {
-                temp = temp->next;
-            }
-            delete temp->next;
-            temp->next = nullptr;
-        }
-        size--;
-    }
-    void deleteAt(int k) {
-        if (k < 0 || k >= size) {
+
+        if (temp == nullptr) {
             cout << "Vi tri k khong hop le!\n";
             return;
         }
+
+        Node* newNode = new Node(val);
+        newNode->next = temp->next;
+        temp->next = newNode;
+    }
+
+    void deleteHead() {
+        if (head == nullptr) return;
+        Node* temp = head;
+        head = head->next;
+        delete temp;
+    }
+
+    void deleteTail() {
+        if (head == nullptr) return;
+
+        if (head->next == nullptr) {
+            delete head;
+            head = nullptr;
+            return;
+        }
+
+        Node* temp = head;
+        while (temp->next->next != nullptr) {
+            temp = temp->next;
+        }
+        delete temp->next;
+        temp->next = nullptr;
+    }
+
+    void deleteAt(int k) {
+        if (head == nullptr) return;
+
         if (k == 0) {
             deleteHead();
             return;
         }
+
         Node* temp = head;
         for (int i = 0; i < k - 1; i++) {
+            if (temp->next == nullptr) {
+                cout << "Vi tri k khong hop le!\n";
+                return;
+            }
             temp = temp->next;
         }
+
+        if (temp->next == nullptr) return;
+
         Node* nodeToDelete = temp->next;
         temp->next = nodeToDelete->next;
         delete nodeToDelete;
-        size--;
     }
 };
+
 int main() {
-    SinglyLinkedList sll;
-    sll.insertHead(10);
-    sll.insertHead(20);
-    sll.insertTail(30);
-    sll.insertAt(15, 1);
-    sll.traverseForward(); 
-    sll.traverseBackward();
-    sll.deleteHead();    
-    sll.deleteTail();    
-    sll.deleteAt(1);     
-    sll.traverseForward(); 
+    SinglyLinkedList list;
+
+    list.insertHead(10);
+    list.insertHead(20);
+    list.insertTail(30);
+    list.insertAt(15, 1);
+
+    list.traverseForward(); 
+    list.traverseBackward();
+
+    list.deleteHead(); 
+    list.deleteTail(); 
+    list.deleteAt(1);   
+
+    list.traverseForward(); 
+
     return 0;
 }

@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+
 struct Node {
     int data;
     Node* next;
@@ -7,18 +8,20 @@ struct Node {
 
     Node(int val) : data(val), next(nullptr), prev(nullptr) {}
 };
-class DoublyLinkedList {
-private:
+
+struct DoublyLinkedList {
     Node* head;
     Node* tail;
     int size;
-public:
+
     DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {}
+
     ~DoublyLinkedList() {
         while (head != nullptr) {
             deleteHead();
         }
     }
+
     void traverseForward() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
@@ -32,6 +35,7 @@ public:
         }
         cout << endl;
     }
+
     void traverseBackward() {
         if (tail == nullptr) {
             cout << "Danh sach rong!\n";
@@ -45,6 +49,7 @@ public:
         }
         cout << endl;
     }
+
     void insertHead(int val) {
         Node* newNode = new Node(val);
         if (head == nullptr) {
@@ -56,6 +61,7 @@ public:
         }
         size++;
     }
+
     void insertTail(int val) {
         Node* newNode = new Node(val);
         if (tail == nullptr) {
@@ -67,6 +73,7 @@ public:
         }
         size++;
     }
+
     void insertAt(int val, int k) {
         if (k < 0 || k > size) {
             cout << "Vi tri k khong hop le!\n";
@@ -91,6 +98,7 @@ public:
         temp->next = newNode;
         size++;
     }
+
     void deleteHead() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
@@ -106,6 +114,7 @@ public:
         delete temp;
         size--;
     }
+
     void deleteTail() {
         if (tail == nullptr) {
             cout << "Danh sach rong!\n";
@@ -121,6 +130,7 @@ public:
         delete temp;
         size--;
     }
+
     void deleteAt(int k) {
         if (k < 0 || k >= size) {
             cout << "Vi tri k khong hop le!\n";
@@ -144,17 +154,23 @@ public:
         size--;
     }
 };
+
 int main() {
     DoublyLinkedList dll;
+
     dll.insertHead(10);
     dll.insertHead(20);
     dll.insertTail(30);
-    dll.insertAt(15, 1); 
-    dll.traverseForward();  
-    dll.traverseBackward(); 
-    dll.deleteHead();    
-    dll.deleteTail();    
-    dll.deleteAt(1);     
-    dll.traverseForward();  
+    dll.insertAt(15, 1);
+
+    dll.traverseForward(); 
+    dll.traverseBackward();
+
+    dll.deleteHead(); 
+    dll.deleteTail(); 
+    dll.deleteAt(1);   
+
+    dll.traverseForward(); 
+
     return 0;
 }
