@@ -4,12 +4,11 @@ struct List {
     int data[100];
     int size;
 };
-
-void initList(List &L) {
+void khoi_tao(List &L) {
     L.size = 0;
 }
 
-void insertHead(List &L, int x) {
+void them_dau(List &L, int x) {
     if (L.size >= 100) return;
     for (int i = L.size; i > 0; i--) {
         L.data[i] = L.data[i - 1];
@@ -18,20 +17,20 @@ void insertHead(List &L, int x) {
     L.size++;
 }
 
-void insertTail(List &L, int x) {
+void them_cuoi(List &L, int x) {
     if (L.size >= 100) return;
     L.data[L.size] = x;
     L.size++;
 }
 
-void insertAt(List &L, int x, int pos) {
+void them_tai(List &L, int x, int pos) {
     if (L.size >= 100) return;
     if (pos <= 0) {
-        insertHead(L, x);
+        them_dau(L, x);
         return;
     }
     if (pos >= L.size) {
-        insertTail(L, x);
+        them_cuoi(L, x);
         return;
     }
     for (int i = L.size; i > pos; i--) {
@@ -41,7 +40,7 @@ void insertAt(List &L, int x, int pos) {
     L.size++;
 }
 
-void deleteHead(List &L) {
+void xoa_dau(List &L) {
     if (L.size == 0) return;
     for (int i = 0; i < L.size - 1; i++) {
         L.data[i] = L.data[i + 1];
@@ -49,12 +48,12 @@ void deleteHead(List &L) {
     L.size--;
 }
 
-void deleteTail(List &L) {
+void xoa_cuoi(List &L) {
     if (L.size == 0) return;
     L.size--;
 }
 
-void deleteAt(List &L, int pos) {
+void xoa_tai(List &L, int pos) {
     if (L.size == 0 || pos < 0 || pos >= L.size) return;
     for (int i = pos; i < L.size - 1; i++) {
         L.data[i] = L.data[i + 1];
@@ -62,14 +61,14 @@ void deleteAt(List &L, int pos) {
     L.size--;
 }
 
-void printForward(const List &L) {
+void duyet_xuoi(const List &L) {
     for (int i = 0; i < L.size; i++) {
         cout << L.data[i] << " ";
     }
     cout << endl;
 }
 
-void printBackward(const List &L) {
+void duyet_nguoc(const List &L) {
     for (int i = L.size - 1; i >= 0; i--) {
         cout << L.data[i] << " ";
     }
@@ -78,27 +77,27 @@ void printBackward(const List &L) {
 
 int main() {
     List L;
-    initList(L);
+    khoi_tao(L);
 
-    insertTail(L, 10);
-    insertTail(L, 20);
-    insertTail(L, 30);
-    insertHead(L, 5);
+    them_cuoi(L, 10);
+    them_cuoi(L, 20);
+    them_cuoi(L, 30);
+    them_dau(L, 5);
 
-    printForward(L);
-    printBackward(L);
+    duyet_xuoi(L);
+    duyet_nguoc(L);
 
-    insertAt(L, 15, 2);
-    printForward(L);
+    them_tai(L, 15, 2);
+    duyet_xuoi(L);
 
-    deleteAt(L, 2);
-    printForward(L);
+    xoa_tai(L, 2);
+    duyet_xuoi(L);
 
-    deleteHead(L);
-    printForward(L);
+    xoa_dau(L);
+    duyet_xuoi(L);
 
-    deleteTail(L);
-    printForward(L);
+    xoa_cuoi(L);
+    duyet_xuoi(L);
 
     return 0;
 }

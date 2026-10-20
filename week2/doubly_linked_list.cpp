@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 struct Node {
     int data;
     Node* next;
@@ -8,21 +7,12 @@ struct Node {
 
     Node(int val) : data(val), next(nullptr), prev(nullptr) {}
 };
-
 struct DoublyLinkedList {
     Node* head;
     Node* tail;
     int size;
-
     DoublyLinkedList() : head(nullptr), tail(nullptr), size(0) {}
-
-    ~DoublyLinkedList() {
-        while (head != nullptr) {
-            deleteHead();
-        }
-    }
-
-    void traverseForward() {
+    void duyet_xuoi() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -35,8 +25,7 @@ struct DoublyLinkedList {
         }
         cout << endl;
     }
-
-    void traverseBackward() {
+    void duyet_nguoc() {
         if (tail == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -49,8 +38,7 @@ struct DoublyLinkedList {
         }
         cout << endl;
     }
-
-    void insertHead(int val) {
+    void them_dau(int val) {
         Node* newNode = new Node(val);
         if (head == nullptr) {
             head = tail = newNode;
@@ -61,8 +49,7 @@ struct DoublyLinkedList {
         }
         size++;
     }
-
-    void insertTail(int val) {
+    void them_cuoi(int val) {
         Node* newNode = new Node(val);
         if (tail == nullptr) {
             head = tail = newNode;
@@ -73,18 +60,17 @@ struct DoublyLinkedList {
         }
         size++;
     }
-
-    void insertAt(int val, int k) {
+    void them_tai(int val, int k) {
         if (k < 0 || k > size) {
             cout << "Vi tri k khong hop le!\n";
             return;
         }
         if (k == 0) {
-            insertHead(val);
+            them_dau(val);
             return;
         }
         if (k == size) {
-            insertTail(val);
+            them_cuoi(val);
             return;
         }
         Node* newNode = new Node(val);
@@ -98,8 +84,7 @@ struct DoublyLinkedList {
         temp->next = newNode;
         size++;
     }
-
-    void deleteHead() {
+    void xoa_dau() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -114,8 +99,7 @@ struct DoublyLinkedList {
         delete temp;
         size--;
     }
-
-    void deleteTail() {
+    void xoa_cuoi() {
         if (tail == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -130,18 +114,17 @@ struct DoublyLinkedList {
         delete temp;
         size--;
     }
-
-    void deleteAt(int k) {
+    void xoa_tai(int k) {
         if (k < 0 || k >= size) {
             cout << "Vi tri k khong hop le!\n";
             return;
         }
         if (k == 0) {
-            deleteHead();
+            xoa_dau();
             return;
         }
         if (k == size - 1) {
-            deleteTail();
+            xoa_cuoi();
             return;
         }
         Node* temp = head;
@@ -154,23 +137,17 @@ struct DoublyLinkedList {
         size--;
     }
 };
-
 int main() {
     DoublyLinkedList dll;
-
-    dll.insertHead(10);
-    dll.insertHead(20);
-    dll.insertTail(30);
-    dll.insertAt(15, 1);
-
-    dll.traverseForward(); 
-    dll.traverseBackward();
-
-    dll.deleteHead(); 
-    dll.deleteTail(); 
-    dll.deleteAt(1);   
-
-    dll.traverseForward(); 
-
+    dll.them_dau(10);
+    dll.them_dau(20);
+    dll.them_cuoi(30);
+    dll.them_tai(15, 1);
+    dll.duyet_xuoi(); 
+    dll.duyet_nguoc();
+    dll.xoa_dau(); 
+    dll.xoa_cuoi(); 
+    dll.xoa_tai(1);   
+    dll.duyet_xuoi(); 
     return 0;
 }
