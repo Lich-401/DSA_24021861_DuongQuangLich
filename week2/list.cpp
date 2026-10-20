@@ -1,92 +1,104 @@
 #include <iostream>
 using namespace std;
-struct ArrayList {
-    int* data;
-    int capacity;
+struct List {
+    int data[100];
     int size;
-    ArrayList(int cap = 100) {
-        capacity = cap;
-        size = 0;
-        data = new int[capacity];
-    }
-    ~ArrayList() {
-        delete[] data;
-    }
-    void traverseForward() {
-        if (size == 0) {
-            cout << "Danh sach rong!\n";
-            return;
-        }
-        cout << "Duyet xuoi: ";
-        for (int i = 0; i < size; i++) {
-            cout << data[i] << " ";
-        }
-        cout << endl;
-    }
-    void traverseBackward() {
-        if (size == 0) {
-            cout << "Danh sach rong!\n";
-            return;
-        }
-        cout << "Duyet nguoc: ";
-        for (int i = size - 1; i >= 0; i--) {
-            cout << data[i] << " ";
-        }
-        cout << endl;
-    }
-    void insertHead(int val) {
-        insertAt(val, 0);
-    }
-    void insertTail(int val) {
-        insertAt(val, size);
-    }
-    void insertAt(int val, int k) {
-        if (size >= capacity) {
-            cout << "Mang da day!\n";
-            return;
-        }
-        if (k < 0 || k > size) {
-            cout << "Vi tri k khong hop le!\n";
-            return;
-        }
-        for (int i = size; i > k; i--) {
-            data[i] = data[i - 1];
-        }
-        data[k] = val;
-        size++;
-    }
-    void deleteHead() {
-        deleteAt(0);
-    }
-    void deleteTail() {
-        deleteAt(size - 1);
-    }
-    void deleteAt(int k) {
-        if (size == 0) {
-            cout << "Danh sach rong, khong the xoa!\n";
-            return;
-        }
-        if (k < 0 || k >= size) {
-            cout << "Vi tri k khong hop le!\n";
-            return;
-        }
-        for (int i = k; i < size - 1; i++) {
-            data[i] = data[i + 1];
-        }
-        size--;
-    }
 };
+
+void initList(List &L) {
+    L.size = 0;
+}
+
+void insertHead(List &L, int x) {
+    if (L.size >= 100) return;
+    for (int i = L.size; i > 0; i--) {
+        L.data[i] = L.data[i - 1];
+    }
+    L.data[0] = x;
+    L.size++;
+}
+
+void insertTail(List &L, int x) {
+    if (L.size >= 100) return;
+    L.data[L.size] = x;
+    L.size++;
+}
+
+void insertAt(List &L, int x, int pos) {
+    if (L.size >= 100) return;
+    if (pos <= 0) {
+        insertHead(L, x);
+        return;
+    }
+    if (pos >= L.size) {
+        insertTail(L, x);
+        return;
+    }
+    for (int i = L.size; i > pos; i--) {
+        L.data[i] = L.data[i - 1];
+    }
+    L.data[pos] = x;
+    L.size++;
+}
+
+void deleteHead(List &L) {
+    if (L.size == 0) return;
+    for (int i = 0; i < L.size - 1; i++) {
+        L.data[i] = L.data[i + 1];
+    }
+    L.size--;
+}
+
+void deleteTail(List &L) {
+    if (L.size == 0) return;
+    L.size--;
+}
+
+void deleteAt(List &L, int pos) {
+    if (L.size == 0 || pos < 0 || pos >= L.size) return;
+    for (int i = pos; i < L.size - 1; i++) {
+        L.data[i] = L.data[i + 1];
+    }
+    L.size--;
+}
+
+void printForward(const List &L) {
+    for (int i = 0; i < L.size; i++) {
+        cout << L.data[i] << " ";
+    }
+    cout << endl;
+}
+
+void printBackward(const List &L) {
+    for (int i = L.size - 1; i >= 0; i--) {
+        cout << L.data[i] << " ";
+    }
+    cout << endl;
+}
+
 int main() {
-    ArrayList list;
-    list.insertHead(10);
-    list.insertHead(20);
-    list.insertTail(30);
-    list.insertAt(15, 1); 
-    list.traverseForward();  
-    list.traverseBackward(); 
-    list.deleteHead();    
-    list.deleteTail();      
-    list.deleteAt(1);      
-    list.traverseForward(); 
+    List L;
+    initList(L);
+
+    insertTail(L, 10);
+    insertTail(L, 20);
+    insertTail(L, 30);
+    insertHead(L, 5);
+
+    printForward(L);
+    printBackward(L);
+
+    insertAt(L, 15, 2);
+    printForward(L);
+
+    deleteAt(L, 2);
+    printForward(L);
+
+    deleteHead(L);
+    printForward(L);
+
+    deleteTail(L);
+    printForward(L);
+
     return 0;
 }
