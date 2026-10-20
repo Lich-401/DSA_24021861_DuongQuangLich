@@ -13,7 +13,8 @@ struct SinglyLinkedList {
     SinglyLinkedList() {
         head = nullptr;
     }
-    void duyet_xuoi() {
+
+    void traverseForward() {
         if (head == nullptr) {
             return;
         }
@@ -24,24 +25,28 @@ struct SinglyLinkedList {
         }
         cout << "\n";
     }
-    void in_nguoc(Node* current) {
+    
+    void printReverse(Node* current) {
         if (current == nullptr) return;
-        in_nguoc(current->next);
+        printReverse(current->next);
         cout << current->data << " ";
     }
-    void duyet_nguoc() {
+    
+    void traverseBackward() {
         if (head == nullptr) {
             return;
         }
-        in_nguoc(head);
+        printReverse(head);
         cout << endl;
     }
-    void them_dau(int val) {
+    
+    void insertHead(int val) {
         Node* newNode = new Node(val);
         newNode->next = head;
         head = newNode;
     }
-    void them_cuoi(int val) {
+    
+    void insertTail(int val) {
         Node* newNode = new Node(val);
         if (head == nullptr) {
             head = newNode;
@@ -53,9 +58,10 @@ struct SinglyLinkedList {
         }
         temp->next = newNode;
     }
-    void them_tai(int val, int k) {
+    
+    void insertAt(int val, int k) {
         if (k == 0) {
-            them_dau(val);
+            insertHead(val);
             return;
         }
         Node* temp = head;
@@ -74,13 +80,15 @@ struct SinglyLinkedList {
         newNode->next = temp->next;
         temp->next = newNode;
     }
-    void xoa_dau() {
+    
+    void deleteHead() {
         if (head == nullptr) return;
         Node* temp = head;
         head = head->next;
         delete temp;
     }
-    void xoa_cuoi() {
+    
+    void deleteTail() {
         if (head == nullptr) return;
         if (head->next == nullptr) {
             delete head;
@@ -94,10 +102,11 @@ struct SinglyLinkedList {
         delete temp->next;
         temp->next = nullptr;
     }
-    void xoa_tai(int k) {
+    
+    void deleteAt(int k) {
         if (head == nullptr) return;
         if (k == 0) {
-            xoa_dau();
+            deleteHead();
             return;
         }
         Node* temp = head;
@@ -114,17 +123,17 @@ struct SinglyLinkedList {
         delete p;
     }
 };
-int main() {
-    SinglyLinkedList list;
-    list.them_dau(10);
-    list.them_dau(20);
-    list.them_cuoi(30);
-    list.them_tai(15, 1);
-    list.duyet_xuoi(); 
-    list.duyet_nguoc();
-    list.xoa_dau(); 
-    list.xoa_cuoi(); 
-    list.xoa_tai(1);   
-    list.duyet_xuoi(); 
-    return 0;
-}
+// int main() {
+//     SinglyLinkedList list;
+//     list.insertHead(10);
+//     list.insertHead(20);
+//     list.insertTail(30);
+//     list.insertAt(15, 1);
+//     list.traverseForward();
+//     list.traverseBackward();
+//     list.deleteHead();
+//     list.deleteTail();
+//     list.deleteAt(1);
+//     list.traverseForward();
+//     return 0;
+// }
