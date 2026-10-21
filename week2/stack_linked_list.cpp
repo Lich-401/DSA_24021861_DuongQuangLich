@@ -3,7 +3,7 @@
 struct Stack {
     SinglyLinkedList items;
 
-    bool isEmpty() const {
+    bool isEmpty() {
         return items.head == nullptr;
     }
 
@@ -11,23 +11,33 @@ struct Stack {
         items.insertHead(value);
     }
 
-    bool pop(int &value) {
+    int pop() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.head->data;
+        int value = items.head->data;
         items.deleteHead();
-        return true;
+        return value;
     }
 
-    bool peek(int &value) const {
-        if (isEmpty()) {
-            return false;
+    int size() {
+        int count = 0;
+        Node* current = items.head;
+        while (current != nullptr) {
+            count++;
+            current = current->next;
         }
 
-        value = items.head->data;
-        return true;
+        return count;
+    }
+
+    int top() {
+        if (isEmpty()) {
+            return -1;
+        }
+
+        return items.head->data;
     }
 };
 
@@ -38,13 +48,9 @@ struct Stack {
 //     stack.push(20);
 //     stack.push(30);
 
-//     int value;
-//     if (stack.peek(value)) {
-//         cout << "Top element: " << value << endl;
-//     }
-
-//     while (stack.pop(value)) {
-//         cout << "Popped: " << value << endl;
+//     cout << "Top element: " << stack.top() << endl;
+//     while (!stack.isEmpty()) {
+//         cout << "Popped: " << stack.pop() << endl;
 //     }
 
 //     if (stack.isEmpty()) {

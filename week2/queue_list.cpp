@@ -7,36 +7,38 @@ struct Queue {
         items.initList();
     }
 
-    bool isEmpty() const {
+    bool isEmpty() {
         return items.size == 0;
     }
 
-    bool enqueue(int value) {
+    void enqueue(int value) {
         if (items.size >= 100) {
-            return false;
+            return;
         }
 
         items.insertTail(value);
-        return true;
     }
 
-    bool dequeue(int &value) {
+    int dequeue() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.data[0];
+        int value = items.data[0];
         items.deleteHead();
-        return true;
+        return value;
     }
 
-    bool getFront(int &value) const {
+    int peek() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.data[0];
-        return true;
+        return items.data[0];
+    }
+
+    int size() {
+        return items.size;
     }
 };
 
@@ -47,13 +49,9 @@ struct Queue {
 //     queue.enqueue(20);
 //     queue.enqueue(30);
 
-//     int value;
-//     if (queue.getFront(value)) {
-//         cout << "Front element: " << value << endl;
-//     }
-
-//     while (queue.dequeue(value)) {
-//         cout << "Dequeued: " << value << endl;
+//     cout << "Front element: " << queue.peek() << endl;
+//     while (!queue.isEmpty()) {
+//         cout << "Dequeued: " << queue.dequeue() << endl;
 //     }
 
 //     if (queue.isEmpty()) {

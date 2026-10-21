@@ -1,58 +1,55 @@
-// #define LIST_NO_MAIN
 #include "../week1/list.cpp"
 
 struct Stack {
     List items;
 
-    void init() {
+    Stack() {
         items.initList();
     }
 
-    bool isEmpty() const {
+    bool isEmpty() {
         return items.size == 0;
     }
 
-    bool push(int value) {
+    void push(int value) {
         if (items.size >= 100) {
-            return false;
+            return;
         }
 
         items.insertTail(value);
-        return true;
     }
 
-    bool pop(int &value) {
+    int pop() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.data[items.size - 1];
+        int value = items.data[items.size - 1];
         items.deleteTail();
-        return true;
+        return value;
     }
 
-    bool peek(int &value) const {
+    int size() const {
+        return items.size;
+    }
+
+    int top() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.data[items.size - 1];
-        return true;
+        return items.data[items.size - 1];
     }
 };
 
 // int main() {
 //     Stack stack;
-//     stack.init();
 //     stack.push(10);
 //     stack.push(20);
 //     stack.push(30);
-//     int value;
-//     if (stack.peek(value)) {
-//         cout << "Top element: " << value << endl;
-//     }
-//     while (stack.pop(value)) {
-//         cout << "Popped: " << value << endl;
+//     cout << "Top element: " << stack.top() << endl;
+//     while (!stack.isEmpty()) {
+//         cout << "Popped: " << stack.pop() << endl;
 //     }
 //     if (stack.isEmpty()) {
 //         cout << "The stack is empty." << endl;

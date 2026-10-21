@@ -3,7 +3,7 @@
 struct Queue {
     SinglyLinkedList items;
 
-    bool isEmpty() const {
+    bool isEmpty() {
         return items.head == nullptr;
     }
 
@@ -11,23 +11,32 @@ struct Queue {
         items.insertTail(value);
     }
 
-    bool dequeue(int &value) {
+    int dequeue() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.head->data;
+        int value = items.head->data;
         items.deleteHead();
-        return true;
+        return value;
     }
 
-    bool getFront(int &value) const {
+    int peek() {
         if (isEmpty()) {
-            return false;
+            return -1;
         }
 
-        value = items.head->data;
-        return true;
+        return items.head->data;
+    }
+
+    int size() {
+        int count = 0;
+        Node* current = items.head;
+        while (current != nullptr) {
+            count++;
+            current = current->next;
+        }
+        return count;
     }
 };
 
@@ -38,13 +47,9 @@ struct Queue {
 //     queue.enqueue(20);
 //     queue.enqueue(30);
 
-//     int value;
-//     if (queue.getFront(value)) {
-//         cout << "Front element: " << value << endl;
-//     }
-
-//     while (queue.dequeue(value)) {
-//         cout << "Dequeued: " << value << endl;
+//     cout << "Front element: " << queue.peek() << endl;
+//     while (!queue.isEmpty()) {
+//         cout << "Dequeued: " << queue.dequeue() << endl;
 //     }
 
 //     if (queue.isEmpty()) {
