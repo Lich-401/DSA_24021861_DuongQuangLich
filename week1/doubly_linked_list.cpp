@@ -90,7 +90,7 @@ struct DoublyLinkedList {
         size++;
     }
     
-    void deleteBeginning() {
+    void deleteHead() {
         if (head == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -106,7 +106,7 @@ struct DoublyLinkedList {
         size--;
     }
     
-    void deleteEnd() {
+    void deleteTail() {
         if (tail == nullptr) {
             cout << "Danh sach rong!\n";
             return;
@@ -128,11 +128,11 @@ struct DoublyLinkedList {
             return;
         }
         if (k == 0) {
-            deleteBeginning();
+            deleteHead();
             return;
         }
         if (k == size - 1) {
-            deleteEnd();
+            deleteTail();
             return;
         }
         Node* temp = head;
@@ -153,8 +153,8 @@ struct DoublyLinkedList {
 //     dll.insertAt(15, 1);
 //     dll.traverseForward();
 //     dll.traverseBackward();
-//     dll.deleteBeginning();
-//     dll.deleteEnd();
+//     dll.deleteHead();
+//     dll.deleteTail();
 //     dll.deleteAt(1);
 //     dll.traverseForward();
 //     return 0;

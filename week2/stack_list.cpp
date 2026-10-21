@@ -29,7 +29,7 @@ struct Stack {
         return value;
     }
 
-    int size() const {
+    int size() {
         return items.size;
     }
 
