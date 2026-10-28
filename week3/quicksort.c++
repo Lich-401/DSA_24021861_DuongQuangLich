@@ -1,6 +1,11 @@
 #include <iostream>
-#include <utility>
 using namespace std;
+
+void swap(int& x, int& y) {
+    int temp = x;
+    x = y;
+    y = temp;
+}
 
 int partition(int a[], int low, int high) {
     int pivot = a[high];
