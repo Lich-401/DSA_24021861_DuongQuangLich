@@ -1,35 +1,37 @@
 #include <iostream>
 #include <utility>
-#include <vector>
 using namespace std;
 
-int partition(vector<int>& vec, int low, int high) {
-    int pivot = vec[high];
+int partition(int a[], int low, int high) {
+    int pivot = a[high];
     int i = low - 1;
     for (int j = low; j < high; j++) {
-        if (vec[j] <= pivot) {
+        if (a[j] <= pivot) {
             i++;
-            swap(vec[i], vec[j]);
+            swap(a[i], a[j]);
         }
     }
-    swap(vec[i + 1], vec[high]);
+    swap(a[i + 1], a[high]);
     return i + 1;
 }
 
-void quickSort(vector<int>& vec, int low, int high) {
+void quickSort(int a[], int low, int high) {
     if (low < high) {
-        int pi = partition(vec, low, high);
-        quickSort(vec, low, pi - 1);
-        quickSort(vec, pi + 1, high);
+        int pi = partition(a, low, high);
+        quickSort(a, low, pi - 1);
+        quickSort(a, pi + 1, high);
     }
 }
 
 int main() {
-    vector<int> vec = {4, 3, 1, 2, 5, 9, 7, 10, 6};
-    int n = vec.size();
-    quickSort(vec, 0, n - 1);
-    for (int i : vec) {
-        cout << i << " ";
-    }
+    int a[1000];
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    quickSort(a, 0, n - 1);
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
     return 0;
 }

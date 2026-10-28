@@ -1,11 +1,11 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
-void merge(vector<int>& a, int l, int m, int r){
+void merge(int a[], int l, int m, int r){
     int n1 = m - l + 1;
     int n2 = r - m;
-    vector<int> L(n1), R(n2);
+    int* L = new int[n1];
+    int* R = new int[n2];
     for (int i = 0; i < n1; i++)
         L[i] = a[l + i];
     for (int j = 0; j < n2; j++)
@@ -33,23 +33,29 @@ void merge(vector<int>& a, int l, int m, int r){
         j++;
         k++;
     }
+    delete[] L;
+    delete[] R;
 }
 
-void mergeSort(vector<int>& a, int l, int r){
+void mergeSort(int a[], int l, int r){
     if (l >= r)
         return;
-    int mid = l + (r - l) / 2;
+    int mid = (l + r) / 2;
     mergeSort(a, l, mid);
     mergeSort(a, mid + 1, r);
     merge(a, l, mid, r);
 }
 
 int main(){
-    vector<int> arr = {38, 27, 43, 10};
-    int n = arr.size();
-    mergeSort(arr, 0, n - 1);
-    for (int i = 0; i < arr.size(); i++)
-        cout << arr[i] << " ";
+    int a[1000];
+    int n;
+    cin >> n;
+    for (int i = 0; i < n; i++)
+        cin >> a[i];
+
+    mergeSort(a, 0, n - 1);
+    for (int i = 0; i < n; i++)
+        cout << a[i] << " ";
     cout << endl;
     return 0;
 }
